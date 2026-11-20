@@ -114,3 +114,51 @@ button, summary { cursor: pointer; }
   html { scroll-behavior: auto; }
   .button { transition: none; }
 }
+
+/* Plano e diário */
+.account-main { padding-bottom: 7rem; }
+.form textarea { width: 100%; border: 1px solid #444; border-radius: .65rem; background: #101010; color: #fff; padding: .7rem; resize: vertical; font: inherit; font-size: 1rem; }
+.input-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.field-hint, .form .field-hint { color: var(--muted); font-size: .85rem; font-weight: 400; margin: 0; }
+.form-buttons { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .75rem; margin-top: .3rem; }
+.plan-form { border-top: 1px solid var(--border); margin-top: 1.4rem; padding-top: 1.2rem; }
+.plan-form h2, .today-section h2, .today-calories h2 { font-size: clamp(1.3rem, 3.5vw, 1.7rem); }
+.plan-form h2 { margin: .45rem 0 .6rem; }
+.choices { min-width: 0; display: grid; gap: .5rem; }
+.choices legend { font-size: .9rem; font-weight: 650; margin-bottom: .45rem; }
+.form .choice { display: flex; align-items: center; gap: .65rem; min-height: 2.85rem; border: 1px solid #444; border-radius: .65rem; padding: .5rem .65rem; cursor: pointer; }
+.choice:has(input:checked) { border-color: var(--accent); background: #2c1a13; }
+.form .choice input { width: 1rem; min-height: 0; height: 1rem; accent-color: var(--accent); flex: none; }
+.choice small { display: block; font-weight: 400; }
+.plan-targets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; margin: 1rem 0; }
+.plan-targets div { padding: .7rem; border-radius: .65rem; background: #111; }
+.plan-targets dt { color: var(--muted); font-size: .85rem; }
+.plan-targets dd { font-size: 1.25rem; font-weight: 750; }
+.plan-targets div:first-child dd { color: #ff8052; }
+.plan-form p { overflow-wrap: anywhere; }
+.progress-track { display: block; width: 100%; height: .55rem; border: 0; border-radius: 1rem; overflow: hidden; background: #383838; color: var(--accent); appearance: none; }
+.progress-track::-webkit-progress-bar { background: #383838; }
+.progress-track::-webkit-progress-value { background: var(--accent); border-radius: 1rem; }
+.progress-track::-moz-progress-bar { background: var(--accent); border-radius: 1rem; }
+.today { max-width: 48rem; margin-inline: auto; display: grid; gap: 1.5rem; }
+.today-heading p { margin-top: .3rem; }
+.today-calories strong { color: #ff8052; font-size: clamp(2rem, 7vw, 3rem); font-weight: 750; }
+.today-calories .progress-track { margin-top: .5rem; }
+.today-macros, .meal-list { display: grid; gap: .65rem; margin-top: .75rem; }
+.today-macros h3 { font-size: 1rem; }
+.today-macros p { margin: .35rem 0 .65rem; }
+.today-macros strong { color: #fff; }
+.meal-card li { display: flex; justify-content: space-between; gap: .75rem; padding-block: .55rem; border-bottom: 1px solid var(--border); }
+.meal-card li span:first-child { overflow-wrap: anywhere; }
+.meal-card li span:last-child { color: var(--muted); white-space: nowrap; }
+.add-food { margin-top: .85rem; }
+.add-food > summary { list-style: none; }
+.add-food > summary::-webkit-details-marker { display: none; }
+.app-nav { position: fixed; z-index: 5; inset: auto 0 0; border-top: 1px solid var(--border); background: var(--background); padding-bottom: env(safe-area-inset-bottom); }
+.app-nav ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 42rem; width: min(100% - 1rem, 42rem); }
+.app-nav a, .app-nav .nav-unavailable { display: grid; justify-items: center; align-content: center; gap: .2rem; min-height: 3.8rem; color: var(--muted); font-size: .72rem; }
+.app-nav a[aria-current="page"] { color: #ff8052; font-weight: 750; }
+.app-nav .nav-unavailable { color: #777; }
+@media (min-width: 34rem) {
+  .today-macros { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

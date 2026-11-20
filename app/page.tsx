@@ -15,7 +15,7 @@ const features = [
 ];
 
 const questions = [
-  { title: "O que posso fazer com a minha conta agora?", text: "Já pode criar uma conta e editar o seu perfil. O plano, o diário, o scanner e a análise por foto serão disponibilizados nas próximas fases." },
+  { title: "O que posso fazer com a minha conta agora?", text: "Já pode criar o seu plano, consultar as metas diárias e registar alimentos no diário. O scanner e a análise por foto chegam nas próximas fases." },
   { title: "Em que dispositivos funciona?", text: "Pode abrir a Healthy Season no navegador do telemóvel, tablet ou computador." },
   { title: "Os meus dados são privados?", text: "O seu perfil está protegido pela sessão da sua conta e só pode ser consultado ou alterado por si." },
   { title: "A Healthy Season substitui um nutricionista?", text: "A Healthy Season é uma ferramenta informativa. Para aconselhamento médico ou nutricional, fale com um profissional de saúde." },

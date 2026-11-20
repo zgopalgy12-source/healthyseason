@@ -34,3 +34,17 @@ Aplicação web de nutrição em português, com Next.js, TypeScript, Tailwind C
 3. Crie uma conta, confirme o email no mesmo navegador e verifique que chega a **Criar o meu plano**. O formulário do plano chega na fase (b).
 4. Abra o perfil, altere o nome, guarde e recarregue a página para confirmar que a alteração ficou guardada.
 5. Termine a sessão e volte a entrar com email. Teste **Continuar com Google** numa janela anónima depois de configurar o fornecedor.
+
+## Configurar a fase (b) no Supabase
+
+Depois de aplicar o SQL da fase (a), copie todo o ficheiro [supabase/fase-2-plano.sql](supabase/fase-2-plano.sql) para **SQL Editor → New query**, no mesmo projeto Supabase. Carregue em **Run**. A migração cria o perfil nutricional, as metas diárias e o diário alimentar, com RLS e permissões explícitas.
+
+## Testar a fase (b)
+
+1. Entre com uma conta que ainda não tenha plano. Deve abrir **Criar o meu plano**. Avance e volte atrás para confirmar que os dados são mantidos. Teste também uma idade inferior a 18 anos e um peso objetivo incoerente.
+2. Para um teste de referência, escolha masculino, 30 anos, 175 cm, 75 kg, objetivo de 75 kg, manter peso e atividade moderada. O resumo deve mostrar **2 633 kcal**, **165 g de proteína**, **296 g de hidratos** e **88 g de gordura** por dia.
+3. Carregue em **Começar**. Em **Hoje**, adicione um alimento ao almoço, introduzindo os valores da porção. Confirme que as calorias e os macros aumentam e que o registo se mantém depois de recarregar.
+4. Abra **Perfil → Hoje** através da navegação inferior. Termine a sessão e entre novamente. A conta com plano deve abrir em **Hoje**. Numa janela anónima, abrir diretamente /hoje deve encaminhar para o login.
+5. Com uma segunda conta, confirme que o plano e o diário da primeira conta não aparecem.
+
+A app estima o gasto em repouso pela [equação de Mifflin–St Jeor](https://pubmed.ncbi.nlm.nih.gov/2305711/), aplica o fator de atividade e ajusta a estimativa em −300, 0 ou +300 kcal, conforme o objetivo. Distribui a energia por proteína (25%), hidratos (45%) e gordura (30%). A criação é limitada a adultos e a estimativas de pelo menos 1 200 kcal para o cálculo feminino ou 1 500 kcal para o masculino. O diário usa o fuso horário do navegador, com Lisboa como referência inicial.
