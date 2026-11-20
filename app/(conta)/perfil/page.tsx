@@ -1,3 +1,4 @@
+import { TrialNotice } from "@/components/trial-notice";
 import { requireAccount } from "@/lib/auth";
 import { signOut } from "./actions";
 import { ProfileForm } from "./profile-form";
@@ -14,6 +15,7 @@ export default async function Profile({ searchParams }: { searchParams: Promise<
   return <section className="card account-card">
     <h1>O meu perfil</h1>
     <p>Consulte e atualize os dados da sua conta.</p>
+    <TrialNotice />
     {error
       ? <p className="notice" role="alert">Não foi possível carregar o perfil. Atualize a página e tente novamente.</p>
       : <ProfileForm name={data?.full_name ?? ""} email={email ?? ""} />}

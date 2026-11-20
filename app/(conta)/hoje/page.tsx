@@ -1,15 +1,33 @@
+import Link from "next/link";
+import { Camera, ScanLine } from "lucide-react";
+import { TrialNotice } from "@/components/trial-notice";
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 import { requireAccount } from "@/lib/auth";
 import { meals } from "@/lib/diary";
 import { formatNumber, macros, type Nutrients } from "@/lib/nutrition";
 import { currentDiaryDay, dailyTargets } from "@/lib/nutrition-server";
-import { DiaryClock } from "./clock";
+import { DiaryClock } from "@/components/diary-clock";
 import { FoodForm } from "./food-form";
 
 export const metadata = { title: "Hoje" };
 
-type Food = Nutrients & { id: string; meal: string; name: string; quantity_g: number | null };
+type Food = Nutrients & {
+  id: string;
+  meal: string;
+  name: string;
+  quantity_g: number | null;
+  quantity_ml: number | null;
+  servings: number | null;
+};
+
+function foodQuantity(food: Food) {
+  const amounts: string[] = [];
+  if (food.servings !== null) amounts.push(formatNumber(food.servings) + (food.servings === 1 ? " porção" : " porções"));
+  if (food.quantity_g !== null) amounts.push(formatNumber(food.quantity_g) + " g");
+  if (food.quantity_ml !== null) amounts.push(formatNumber(food.quantity_ml) + " ml");
+  return amounts.length ? <small> · {amounts.join(" · ")}</small> : null;
+}
 
 function Progress({ amount, goal, label }: { amount: number; goal: number; label: string }) {
   return <progress className="progress-track" max={goal || 1} value={Math.min(amount, goal)}
@@ -25,7 +43,7 @@ export default async function Today() {
   const pageSize = 200;
   for (let start = 0; ; start += pageSize) {
     const { data, error } = await supabase.from("food_logs")
-      .select("id, meal, name, quantity_g, calories, protein_g, carbs_g, fat_g")
+      .select("id, meal, name, quantity_g, quantity_ml, servings, calories, protein_g, carbs_g, fat_g")
       .eq("user_id", id).eq("logged_on", day)
       .order("created_at").order("id").range(start, start + pageSize - 1);
     if (error) throw new Error("Não foi possível carregar o diário alimentar.");
@@ -44,7 +62,14 @@ export default async function Today() {
 
   return <div className="today">
     <DiaryClock day={day} />
-    <div className="today-heading"><h1>Hoje</h1><p><time dateTime={day}>{dateLabel}</time></p></div>
+    <div className="today-heading">
+      <h1>Hoje</h1><p><time dateTime={day}>{dateLabel}</time></p>
+      <TrialNotice />
+    </div>
+    <div className="today-shortcuts">
+      <Link href="/scanner" className="button button-secondary"><ScanLine size={20} aria-hidden="true" /> Scanear produto</Link>
+      <Link href="/foto" className="button button-secondary"><Camera size={20} aria-hidden="true" /> Foto da refeição</Link>
+    </div>
     <section className="card today-calories">
       <h2>Calorias consumidas</h2>
       <p><strong>{formatNumber(totals.calories)}</strong> / {formatNumber(targets.calories)} kcal</p>
@@ -67,7 +92,7 @@ export default async function Today() {
         return <article key={key} className="card meal-card">
           <h3>{label}</h3>
           {foods.length ? <ul>{foods.map((food) => <li key={food.id}>
-            <span>{food.name}{food.quantity_g !== null && <small> · {formatNumber(food.quantity_g)} g</small>}</span>
+            <span>{food.name}{foodQuantity(food)}</span>
             <span>{formatNumber(food.calories)} kcal</span>
           </li>)}</ul> : <p>Ainda sem alimentos registados.</p>}
           <FoodForm meal={key} day={day} initialId={randomUUID()} label={label} />

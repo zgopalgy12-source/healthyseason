@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { supabaseKey, supabaseUrl } from "@/lib/supabase/config";
 
 export async function proxy(request: NextRequest) {
-  const protectedRoute = ["/perfil", "/criar-plano", "/hoje"].some(
+  const protectedRoute = ["/perfil", "/criar-plano", "/hoje", "/scanner", "/foto"].some(
     (path) => request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(path + "/"),
   );
   let response = NextResponse.next({ request });
@@ -36,5 +36,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/perfil/:path*", "/criar-plano/:path*", "/hoje/:path*", "/login", "/registo"],
+  matcher: ["/perfil/:path*", "/criar-plano/:path*", "/hoje/:path*", "/scanner/:path*", "/foto/:path*", "/api/scanner", "/login", "/registo"],
 };

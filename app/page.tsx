@@ -15,7 +15,8 @@ const features = [
 ];
 
 const questions = [
-  { title: "O que posso fazer com a minha conta agora?", text: "Já pode criar o seu plano, consultar as metas diárias e registar alimentos no diário. O scanner e a análise por foto chegam nas próximas fases." },
+  { title: "O que posso fazer com a minha conta agora?", text: "Já pode criar o seu plano, registar alimentos no diário e usar o scanner. A análise por foto estará disponível na fase seguinte." },
+  { title: "Como funciona o teste grátis?", text: "O teste começa quando cria a conta. Durante sete dias, o scanner e a análise de refeições por foto podem ser usados sem limites, à medida que ficam disponíveis. Quando o teste termina, pode entrar na lista de espera." },
   { title: "Em que dispositivos funciona?", text: "Pode abrir a Healthy Season no navegador do telemóvel, tablet ou computador." },
   { title: "Os meus dados são privados?", text: "O seu perfil está protegido pela sessão da sua conta e só pode ser consultado ou alterado por si." },
   { title: "A Healthy Season substitui um nutricionista?", text: "A Healthy Season é uma ferramenta informativa. Para aconselhamento médico ou nutricional, fale com um profissional de saúde." },
@@ -56,6 +57,7 @@ export default function Landing() {
           <h1>Saiba o que come <span className="accent">em segundos.</span></h1>
           <p>Digitalize o código de barras de um produto e veja logo as calorias, as proteínas, os hidratos e as gorduras. Registe cada refeição e acompanhe a meta do seu dia.</p>
           <StartLink />
+          <p className="hero-trial">7 dias grátis, sem limites</p>
         </div>
         <ScannerPreview />
       </section>

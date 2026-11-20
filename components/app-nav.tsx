@@ -6,8 +6,8 @@ import { Camera, ChartNoAxesColumnIncreasing, House, ScanLine, UserRound } from 
 
 const links = [
   { label: "Hoje", path: "/hoje", Icon: House },
-  { label: "Scanner", Icon: ScanLine },
-  { label: "Foto", Icon: Camera },
+  { label: "Scanner", path: "/scanner", Icon: ScanLine },
+  { label: "Foto", path: "/foto", Icon: Camera },
   { label: "Progresso", Icon: ChartNoAxesColumnIncreasing },
   { label: "Perfil", path: "/perfil", Icon: UserRound },
 ];

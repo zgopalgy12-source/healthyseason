@@ -48,3 +48,17 @@ Depois de aplicar o SQL da fase (a), copie todo o ficheiro [supabase/fase-2-plan
 5. Com uma segunda conta, confirme que o plano e o diário da primeira conta não aparecem.
 
 A app estima o gasto em repouso pela [equação de Mifflin–St Jeor](https://pubmed.ncbi.nlm.nih.gov/2305711/), aplica o fator de atividade e ajusta a estimativa em −300, 0 ou +300 kcal, conforme o objetivo. Distribui a energia por proteína (25%), hidratos (45%) e gordura (30%). A criação é limitada a adultos e a estimativas de pelo menos 1 200 kcal para o cálculo feminino ou 1 500 kcal para o masculino. O diário usa o fuso horário do navegador, com Lisboa como referência inicial.
+
+## Configurar a fase (c) no Supabase
+
+Depois das fases (a) e (b), abre **SQL Editor → New query** no mesmo projeto Supabase. Copia o ficheiro inteiro [supabase/fase-3-scanner-trial.sql](supabase/fase-3-scanner-trial.sql), cola-o e carrega em **Run**. As contas que já existiam e foram criadas no dia da migração recebem sete dias a partir da aplicação do SQL, considerando a data de Lisboa. As restantes contam sete dias desde a criação da conta. Voltar a executar a migração preserva os prazos já gravados.
+
+## Testar a fase (c)
+
+1. Abre **Hoje** e **Perfil** com uma conta em teste. Ambos devem mostrar os dias que faltam.
+2. Abre **Scanner** e pesquisa manualmente **3017620422003**. Deves ver Nutella e os dados disponíveis no Open Food Facts. Escolhe **50 g** e **Almoço**, carrega em **Adicionar ao diário** e confirma o registo e os totais em **Hoje**.
+3. Pesquisa **9982746183952**, que devolveu produto não encontrado durante a validação. Confirma a mensagem de produto não encontrado. Pesquisa mais de cinco vezes com o teste ativo e verifica que o scanner continua disponível.
+4. No telemóvel, abre o endereço **HTTPS** da app na Vercel no Safari ou Chrome. Entra, abre **Scanner → Abrir câmara**, permite o acesso e aponta ao código de barras de uma embalagem. Testa também recusar a permissão e pesquisar digitando o código. O endereço HTTP com o IP do computador na rede local não dá acesso à câmara. A exceção para `localhost` aplica-se ao dispositivo onde a app está a correr.
+5. Para simular o fim do teste, usa uma conta de teste. No Supabase, abre **Table Editor → account_trials**, identifica a linha pelo **User UID** de **Authentication → Users**, copia o valor original de `trial_ends_at` e muda-o para uma data passada. Recarrega **Scanner** e **Foto**, confirma que aparece **O teu teste grátis terminou** e envia o email. Verifica a linha em **Table Editor → waitlist** e repõe o prazo original da conta de teste. Confirma também que **Hoje** continua a aceitar alimentos manuais.
+
+O scanner atribui os dados e as imagens ao [Open Food Facts](https://world.openfoodfacts.org/). Alguns produtos não têm marca, imagem, porção ou todos os valores nutricionais. Quando os valores necessários estão incompletos, podes usar o rótulo para adicionar manualmente em **Hoje**. O acesso à análise de refeições por foto já tem a proteção do teste. A análise será implementada na fase (d).
