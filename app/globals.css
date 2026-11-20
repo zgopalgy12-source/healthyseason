@@ -196,3 +196,31 @@ button, summary { cursor: pointer; }
   .today-shortcuts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .scanner-controls .manual-barcode { grid-template-columns: 1fr auto; align-items: end; }
 }
+
+/* Análise por foto e sugestões de refeições */
+.ai-section h1 { font-size: clamp(1.85rem, 5vw, 2.65rem); }
+.ai-section h2 { font-size: clamp(1.35rem, 4vw, 1.8rem); }
+.ai-section > .button { margin-top: .85rem; }
+.ai-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block: 1rem; }
+.file-button { position: relative; overflow: hidden; cursor: pointer; }
+.file-button input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.file-button:focus-within { outline: 2px solid #ff8052; outline-offset: 3px; }
+.file-button:has(input:disabled) { opacity: .58; cursor: not-allowed; }
+.food-preview { width: 100%; max-height: 25rem; object-fit: contain; border-radius: .75rem; margin-bottom: .85rem; background: #101010; }
+.ai-editor { display: grid; gap: .75rem; border: 1px solid var(--border); min-width: 0; border-radius: .7rem; padding: .75rem; }
+.ai-editor legend { padding: 0 .3rem; font-size: .85rem; color: #ffad8c; }
+.ai-editor .button { justify-self: start; }
+.ai-nutrients { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin-top: .6rem; }
+.ai-nutrients div { padding: .52rem .6rem; border-radius: .55rem; background: #111; }
+.ai-nutrients dt { color: var(--muted); font-size: .82rem; }
+.ai-nutrients dd { color: #fff; font-size: .92rem; font-weight: 650; }
+.ai-section .notice a { color: #ffad8c; text-decoration: underline; text-underline-offset: .18em; }
+.plan-meal .kicker { margin: 0 0 .35rem; }
+.plan-ingredients { margin-block: .75rem; }
+.plan-ingredients li { display: flex; gap: .7rem; justify-content: space-between; border-bottom: 1px solid var(--border); padding-block: .35rem; }
+.plan-ingredients li span:last-child { color: var(--muted); white-space: nowrap; }
+.plan-ingredients span:first-child, .plan-meal h3 { overflow-wrap: anywhere; }
+@media (min-width: 45rem) {
+  .today-shortcuts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ai-nutrients { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

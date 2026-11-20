@@ -15,8 +15,8 @@ const features = [
 ];
 
 const questions = [
-  { title: "O que posso fazer com a minha conta agora?", text: "Já pode criar o seu plano, registar alimentos no diário e usar o scanner. A análise por foto estará disponível na fase seguinte." },
-  { title: "Como funciona o teste grátis?", text: "O teste começa quando cria a conta. Durante sete dias, o scanner e a análise de refeições por foto podem ser usados sem limites, à medida que ficam disponíveis. Quando o teste termina, pode entrar na lista de espera." },
+  { title: "O que posso fazer com a minha conta agora?", text: "Já pode criar o seu plano, registar alimentos no diário, usar o scanner, analisar refeições por foto e pedir sugestões de refeições." },
+  { title: "Como funciona o teste grátis?", text: "O teste começa quando cria a conta. Durante sete dias, pode usar o scanner e a análise de refeições por foto sem um total fixo de utilizações. Quando o teste termina, pode entrar na lista de espera." },
   { title: "Em que dispositivos funciona?", text: "Pode abrir a Healthy Season no navegador do telemóvel, tablet ou computador." },
   { title: "Os meus dados são privados?", text: "O seu perfil está protegido pela sessão da sua conta e só pode ser consultado ou alterado por si." },
   { title: "A Healthy Season substitui um nutricionista?", text: "A Healthy Season é uma ferramenta informativa. Para aconselhamento médico ou nutricional, fale com um profissional de saúde." },

@@ -1,19 +1,21 @@
+import { DiaryClock } from "@/components/diary-clock";
 import { TrialExpiry } from "@/components/trial-expiry";
-import Link from "next/link";
 import { ExpiredTrial } from "@/components/waitlist/expired-trial";
 import { requireAccount } from "@/lib/auth";
+import { currentDiaryDay } from "@/lib/nutrition-server";
 import { hasActiveTrial, trialTimeLeft } from "@/lib/trial-server";
+import { PhotoTool } from "./photo-tool";
 
 export const metadata = { title: "Foto da refeição" };
 
 export default async function FoodPhoto() {
   const { email, supabase } = await requireAccount();
   if (!(await hasActiveTrial(supabase))) return <ExpiredTrial email={email ?? ""} />;
+  const [{ iso }, milliseconds] = await Promise.all([currentDiaryDay(), trialTimeLeft()]);
 
-  return <section className="card account-card">
-    <TrialExpiry milliseconds={await trialTimeLeft()} />
-    <h1>Foto da refeição</h1>
-    <p>A análise de refeições por foto estará disponível na fase seguinte.</p>
-    <Link href="/hoje" className="button button-secondary">Voltar a Hoje</Link>
-  </section>;
+  return <div className="scanner">
+    <DiaryClock day={iso} />
+    <TrialExpiry milliseconds={milliseconds} />
+    <PhotoTool />
+  </div>;
 }

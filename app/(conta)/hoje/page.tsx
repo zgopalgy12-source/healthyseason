@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Camera, ScanLine } from "lucide-react";
+import { CalendarDays, Camera, ScanLine } from "lucide-react";
 import { TrialNotice } from "@/components/trial-notice";
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
@@ -18,6 +18,7 @@ type Food = Nutrients & {
   name: string;
   quantity_g: number | null;
   quantity_ml: number | null;
+  quantity_units: number | null;
   servings: number | null;
 };
 
@@ -26,6 +27,7 @@ function foodQuantity(food: Food) {
   if (food.servings !== null) amounts.push(formatNumber(food.servings) + (food.servings === 1 ? " porção" : " porções"));
   if (food.quantity_g !== null) amounts.push(formatNumber(food.quantity_g) + " g");
   if (food.quantity_ml !== null) amounts.push(formatNumber(food.quantity_ml) + " ml");
+  if (food.quantity_units !== null) amounts.push(formatNumber(food.quantity_units) + (food.quantity_units === 1 ? " unidade" : " unidades"));
   return amounts.length ? <small> · {amounts.join(" · ")}</small> : null;
 }
 
@@ -43,7 +45,7 @@ export default async function Today() {
   const pageSize = 200;
   for (let start = 0; ; start += pageSize) {
     const { data, error } = await supabase.from("food_logs")
-      .select("id, meal, name, quantity_g, quantity_ml, servings, calories, protein_g, carbs_g, fat_g")
+      .select("id, meal, name, quantity_g, quantity_ml, quantity_units, servings, calories, protein_g, carbs_g, fat_g")
       .eq("user_id", id).eq("logged_on", day)
       .order("created_at").order("id").range(start, start + pageSize - 1);
     if (error) throw new Error("Não foi possível carregar o diário alimentar.");
@@ -69,6 +71,7 @@ export default async function Today() {
     <div className="today-shortcuts">
       <Link href="/scanner" className="button button-secondary"><ScanLine size={20} aria-hidden="true" /> Scanear produto</Link>
       <Link href="/foto" className="button button-secondary"><Camera size={20} aria-hidden="true" /> Foto da refeição</Link>
+      <Link href="/plano" className="button button-secondary"><CalendarDays size={20} aria-hidden="true" /> Plano de refeições</Link>
     </div>
     <section className="card today-calories">
       <h2>Calorias consumidas</h2>
